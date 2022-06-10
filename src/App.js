@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Bookshelf from './views/Bookshelf';
+import AddBookForm from './components/AddBookForm';
+import { styles } from './styles';
 
-function App() {
+const App = () => {
+  const [formView, toggleFormView] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={styles.AppRoot}>
+      {!formView ? (
+        <Bookshelf toggleFormView={toggleFormView} />
+      ) : (
+        <AddBookForm toggleFormView={toggleFormView} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
