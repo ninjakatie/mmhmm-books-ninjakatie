@@ -1,19 +1,13 @@
 import TrashIcon from '../assets/icons/trashcan.png';
 import { deleteBook } from '../services/BookService';
 import { styles } from '../styles';
+import formatDescriptionText from '../util/formatDescriptionText';
 
-const formatDescriptionText = description => {
-  if (!description) {
-    return '';
-  }
-
-  if (description.length > 465) {
-    const shortenedText = description.slice(0, 465).concat('...');
-
-    return shortenedText;
-  }
-};
-
+/**
+ * Renders the card view of a single book object.
+ * @param {Object} book - an Object with the following fields: { id, description, imageUrl, author, title }
+ * @returns React JSX
+ */
 const Book = ({ book, setBooksData }) => {
   const { id, description, imageUrl, author, title } = book;
 

@@ -5,6 +5,8 @@ import { styles } from '../styles.js';
 /**
  * Bookshelf component renders a list of books
  * @param {Function} toggleFormView - callback to open form component for adding a new book
+ * @param {Object[]} booksData - an array of book objects to be displayed
+ * @param {Function} setBooksData - callback function that manages the state of the main bookData state variable.
  * @returns - React JSX
  */
 

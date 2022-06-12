@@ -79,7 +79,13 @@ const FormParent = {
   flexDirection: 'column',
   width: '564px',
   marginTop: '40px',
-  marginBottom: '40px',
+  marginBottom: '40px'
+};
+
+const Form = {
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
   gap: '30px'
 };
 
@@ -121,6 +127,7 @@ export const styles = {
   AuthorText,
   BodyText,
   FormParent,
+  Form,
   TextField,
   TextArea,
   Button

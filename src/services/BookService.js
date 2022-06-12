@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { validateBookObj } from './util';
 
 const BOOKDATA_BASE_URL =
   'https://us-central1-all-turtles-interview.cloudfunctions.net';
@@ -7,8 +8,9 @@ const AUTH_HEADERS = {
   Authorization: 'katiefedoseeva'
 };
 
-/** async axios request that fetches all books
-@returns {Object[]} - ex: 
+/** 
+ * Async axios GET request that fetches all books.
+ * @returns {Object[]} - ex: 
 [
   {
     "id": String,
@@ -25,47 +27,55 @@ export const getAllBooks = async () => {
       headers: AUTH_HEADERS
     });
 
-    console.log('response  ', response);
     return response.data;
   } catch (error) {
-    console.log('error', error);
-    return error.message;
+    return [];
   }
 };
 
 /** 
-Async axios request that adds new book to the bookshelf
-@param {Object} bookObj with the following values:
+Async axios POST request that adds new book to the bookshelf
+@param {Object} bookObj consists of the following structure:
 {
   "description": String,
   "imageUrl": String,
   "author": String,
   "title": String
 }
-@returns {Object[]} updated list of books
+@returns {Object[]} updated list of books or an empty array.
 */
 
 export const saveBook = async bookObj => {
-  try {
-    const response = await axios.post(
-      `${BOOKDATA_BASE_URL}${BOOKS_ENDPOINT}`,
-      bookObj,
-      { headers: AUTH_HEADERS }
-    );
+  const validBookObj = validateBookObj(bookObj);
 
-    console.log('response', response.data);
-    return response.data;
-  } catch (error) {
-    console.log('error', error);
-    return error.message;
+  if (!validBookObj) {
+    return [];
+  }
+
+  if (validBookObj) {
+    try {
+      const response = await axios.post(
+        `${BOOKDATA_BASE_URL}${BOOKS_ENDPOINT}`,
+        validBookObj,
+        { headers: AUTH_HEADERS }
+      );
+
+      return response.data;
+    } catch (error) {
+      return [];
+    }
   }
 };
 
 /** Async axios request that deletes a book
 @param {String} bookId - ID of the  book to delete
-@returns {Object[]} - updated list of books
+@returns {Object[]} - updated list of books or an empty array.
 */
 export const deleteBook = async bookId => {
+  if (!bookId) {
+    return [];
+  }
+
   try {
     const response = await axios.delete(
       `${BOOKDATA_BASE_URL}${BOOKS_ENDPOINT}/${bookId}`,
@@ -74,10 +84,8 @@ export const deleteBook = async bookId => {
       }
     );
 
-    console.log('response  ', response.data);
     return response.data;
   } catch (error) {
-    console.log('error', error);
-    return error.message;
+    return [];
   }
 };
