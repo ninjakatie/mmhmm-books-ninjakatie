@@ -1,9 +1,9 @@
 const AppRoot = {
   display: 'flex',
+  flexGrow: 1,
   justifyContent: 'center',
-  alignItems: 'center',
   width: '100%',
-  height: '100%',
+  minHeight: '100vh',
   background: '#e5e5e5'
 };
 
@@ -23,33 +23,68 @@ const BookshelfContainer = {
   display: 'flex',
   flexDirection: 'column',
   width: '601px',
-  marginTop: '80px',
-  marginBottom: '80px',
-  gap: '10px'
+  marginTop: '40px',
+  marginBottom: '40px',
+  gap: '30px'
+};
+
+const BookContainer = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '601px',
+  height: '230px',
+  background: '#ffffff',
+  borderRadius: '8px',
+  border: '1px solid #F1F1F1',
+  boxShadow: '0px 51px 80px rgba(0, 0, 0, 0.04)'
+};
+
+const Text = {
+  fontFamily: 'SF Pro Display',
+  fontStyle: 'normal',
+  color: '#000000',
+  fontSize: '14px'
 };
 
 const HeaderText = {
-  fontStyle: 'SF Pro Display',
+  ...Text,
   fontWeight: 700,
-  fontSize: '42px',
-  color: 'black'
+  fontSize: '42px'
 };
 
 const InputTitle = {
-  ...HeaderText,
-  fontSize: '14px'
+  ...Text,
+  fontWeight: 700
+};
+
+const CardBookTitle = {
+  ...Text,
+  fontSize: '20px'
+};
+
+const AuthorText = {
+  ...Text,
+  fontWeight: 500,
+  fontSize: '12px',
+  color: '#5F5F5F'
+};
+
+const BodyText = {
+  ...Text,
+  fontWeight: 400
 };
 
 const FormParent = {
   display: 'flex',
   flexDirection: 'column',
   width: '564px',
-  marginTop: '80px',
-  marginBottom: '80px',
-  gap: '50px'
+  marginTop: '40px',
+  marginBottom: '40px',
+  gap: '30px'
 };
 
 const TextField = {
+  ...Text,
   width: '564px',
   height: '50px',
   borderRadius: '4px',
@@ -70,7 +105,8 @@ const Button = {
   ...HeaderText,
   color: '#ffffff',
   fontSize: '18px',
-  border: 'none'
+  border: 'none',
+  cursor: 'pointer'
 };
 
 export const styles = {
@@ -78,8 +114,12 @@ export const styles = {
   HeaderContainer,
   BookshelfHeader,
   BookshelfContainer,
+  BookContainer,
   HeaderText,
   InputTitle,
+  CardBookTitle,
+  AuthorText,
+  BodyText,
   FormParent,
   TextField,
   TextArea,

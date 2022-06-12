@@ -1,11 +1,21 @@
 import { useState } from 'react';
 import { styles } from '../styles';
 import xIcon from '../assets/icons/xCancelIcon.png';
+import { saveBook } from '../services/BookService';
 
-const formFields = ['Title', 'Author', 'Description', 'ImageUrl'];
+const FORM_FIELDS = {
+  title: 'Title',
+  author: 'Author',
+  description: 'Description',
+  imageUrl: 'Image URL'
+};
 
-const AddBookForm = ({ toggleFormView }) => {
-  const [fieldValues, updateFieldValues] = useState({});
+const BOOK_COVER_IMG = 'https://picsum.photos/125/200';
+
+const AddBookForm = ({ toggleFormView, setBookData }) => {
+  const [fieldValues, updateFieldValues] = useState({
+    imageUrl: BOOK_COVER_IMG
+  });
 
   const onFieldValueUpdate = (newValue, field) => {
     const newFields = {
@@ -13,33 +23,47 @@ const AddBookForm = ({ toggleFormView }) => {
       [field]: newValue
     };
 
-    console.log('new fields', newFields);
-
     updateFieldValues(newFields);
   };
 
-  const onSaveBook = () => {};
+  const onSaveBook = async () => {
+    if (Object.keys(fieldValues)?.length) {
+      const newBookList = await saveBook(fieldValues);
+
+      if (newBookList?.length) {
+        setBookData(newBookList);
+        toggleFormView(false);
+      }
+    }
+  };
 
   return (
     <div style={styles.FormParent}>
       <div style={styles.HeaderContainer}>
         <h1 style={styles.HeaderText}>Add a new book</h1>
-        <div onClick={() => toggleFormView(false)}>
+        <div
+          onClick={() => toggleFormView(false)}
+          style={{ cursor: 'pointer' }}
+        >
           <img src={xIcon} alt='close form' width='27px' height='27px' />
         </div>
       </div>
 
-      {formFields.map(field => {
+      {Object.entries(FORM_FIELDS).map(([key, fieldName]) => {
         return (
-          <div key={field}>
-            <h3 style={styles.InputTitle}>{field}</h3>
-            {field !== 'Description' ? (
+          <div key={key}>
+            <h3 style={styles.InputTitle}>{fieldName}</h3>
+            {key !== 'description' ? (
               <input
                 style={styles.TextField}
-                onChange={e => onFieldValueUpdate(e.target.value, field)}
+                onChange={e => onFieldValueUpdate(e.target.value, key)}
+                value={fieldValues[key]}
               />
             ) : (
-              <textarea style={styles.TextArea} />
+              <textarea
+                style={styles.TextArea}
+                onChange={e => onFieldValueUpdate(e.target.value, key)}
+              />
             )}
           </div>
         );

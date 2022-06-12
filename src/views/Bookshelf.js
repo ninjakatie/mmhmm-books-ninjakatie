@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Book from '../components/Book';
 import { styles } from '../styles.js';
 
@@ -7,17 +8,14 @@ import { styles } from '../styles.js';
  * @returns - React JSX
  */
 
-const mockBook = {
-  id: 1,
-  description: 'book',
-  imageUrl: 'url',
-  author: 'Kayla',
-  title: 'title'
-};
+const Bookshelf = ({ toggleFormView, booksData, setBooksData }) => {
+  const [books, setBooks] = useState([]);
 
-const Bookshelf = ({ toggleFormView }) => {
-  // fetch and display all books on the bookshelf
-  const mockBooks = [mockBook, mockBook, mockBook];
+  useEffect(() => {
+    if (booksData) {
+      setBooks(booksData);
+    }
+  }, [booksData]);
 
   return (
     <div style={styles.BookshelfContainer}>
@@ -27,9 +25,17 @@ const Bookshelf = ({ toggleFormView }) => {
           Add Book
         </button>
       </div>
-      {mockBooks.map((book, i) => (
-        <Book key={book.id + i} bookData={book} />
-      ))}
+      {books?.length ? (
+        books.map(book => (
+          <div key={book.id}>
+            <Book book={book} setBooksData={setBooksData} />
+          </div>
+        ))
+      ) : (
+        <div style={{ ...styles.InputTitle, ...styles.HeaderContainer }}>
+          There are no books on the bookshelf. Add a book to get started.
+        </div>
+      )}
     </div>
   );
 };
