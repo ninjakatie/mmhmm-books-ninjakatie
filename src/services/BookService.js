@@ -56,7 +56,7 @@ export const saveBook = async bookObj => {
     try {
       const response = await axios.post(
         `${BOOKDATA_BASE_URL}${BOOKS_ENDPOINT}`,
-        validBookObj,
+        bookObj,
         { headers: AUTH_HEADERS }
       );
 

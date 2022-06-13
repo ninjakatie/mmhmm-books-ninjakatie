@@ -14,7 +14,7 @@ const Book = ({ book, setBooksData }) => {
   const onDeleteBook = async () => {
     const result = await deleteBook(id);
 
-    if (result?.length) {
+    if (result) {
       setBooksData(result);
     }
   };

@@ -9,7 +9,7 @@ export const validateBookObj = bookObj => {
   }
 
   // only the author and title fields are required.
-  if (!bookObj.author || !bookObj.title) {
+  if (!bookObj.author?.length || !bookObj.title?.length) {
     return false;
   }
 

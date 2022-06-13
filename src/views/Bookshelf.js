@@ -34,7 +34,13 @@ const Bookshelf = ({ toggleFormView, booksData, setBooksData }) => {
           </div>
         ))
       ) : (
-        <div style={{ ...styles.InputTitle, ...styles.HeaderContainer }}>
+        <div
+          style={{
+            ...styles.InputTitle,
+            ...styles.HeaderContainer,
+            justifyContent: 'center'
+          }}
+        >
           There are no books on the bookshelf. Add a book to get started.
         </div>
       )}

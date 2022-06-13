@@ -36,7 +36,9 @@ const AddBookForm = ({ toggleFormView, setBookData }) => {
     updateFieldValues(newFields);
   };
 
-  const onSaveBook = async () => {
+  const onSaveBook = async e => {
+    e.preventDefault();
+
     if (Object.keys(fieldValues)?.length) {
       const newBookList = await saveBook(fieldValues);
 

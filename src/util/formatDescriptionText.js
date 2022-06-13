@@ -1,3 +1,9 @@
+/**
+ * Truncates the description body to ensure it fits into the card view.
+ * @param {String} description
+ * @returns {String} shortened text
+ */
+
 const formatDescriptionText = description => {
   if (!description) {
     return '';
